@@ -55,6 +55,7 @@ namespace PhisicExperiments
         {
             numericUpDown_molec_count.Maximum = MAX_MOLEC_CAPACITY;
             numericUpDown_temparature.Maximum = MAX_TEMPR;
+            numericUpDown_temparature.Value = DEFAULT_TEMPR;
 
             Volume = panel1.Height * panel1.Width * Depth;
             Tempreture = DEFAULT_TEMPR;
@@ -62,9 +63,8 @@ namespace PhisicExperiments
             Presure = 0;
 
             for (int i = 0; i < 10; i++)
-
             {
-                AddMolecul();
+                //AddMolecul();
             }
         }
 
@@ -73,21 +73,34 @@ namespace PhisicExperiments
         {
             AddMolecul();
 
-            RedrawArea();
-            UIupdate();
+            timer_main_area.Enabled = true;
         }
 
         private void AddMolecul()
         {
-            Random rand = new Random();
-            Molecula m = new Molecula(rand.Next(30, 420), rand.Next(30, 270));
-            m.vectorX = rand.NextDouble() - 0.5;
-            m.vectorY = rand.NextDouble()-0.5;
-            SMolec.Push(m);
+            if (SMolec.Count < 50)
+            {
+                Random rand = new Random();
+                Molecula m = new Molecula(rand.Next(30, 420), rand.Next(30, 270), Tempreture);
+                m.vectorX = rand.NextDouble() - 0.5;
+                m.vectorY = rand.NextDouble()-0.5;
+                SMolec.Push(m);
+            }
+            else
+            {
+                return;
+            }
+            RedrawArea();
+            UIupdate();
         }
 
         //remove
         private void button_remove_molec_Click(object sender, EventArgs e)
+        {
+            RemoveMolec();
+        }
+
+        private void RemoveMolec()
         {
             SMolec.Pop();
             RedrawArea();
@@ -98,7 +111,14 @@ namespace PhisicExperiments
         //clear
         private void button_clear_Click(object sender, EventArgs e)
         {
+            Clear();
+        }
+
+        private void Clear()
+        {
             SMolec.Clear();
+            Tempreture = 0;
+            timer_main_area.Enabled = false;
             RedrawArea();
             UIupdate();
         }
@@ -142,13 +162,17 @@ namespace PhisicExperiments
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
-            UIupdate();
+            //UIupdate();
 
             if (SMolec.Count != 0)
             {
                 Thread th = new Thread(RedrawArea);
                 th.IsBackground = true;
                 th.Start();
+            }
+            else
+            {
+                timer_main_area.Enabled = false;
             }
         }
 
@@ -184,7 +208,7 @@ namespace PhisicExperiments
         private void timer_stopwartch_Tick(object sender, EventArgs e)
         {
             Stopwatch_time++;
-            textBox_stopwatch.Text = Convert.ToString(Stopwatch_time/100.0);
+            textBox_stopwatch.Text = Convert.ToString(String.Format("{0,00}",Stopwatch_time/100.0));
         }
 
         private void button_reset_stopwatch_Click(object sender, EventArgs e)
@@ -192,6 +216,28 @@ namespace PhisicExperiments
             Stopwatch_time = 0;
             textBox_stopwatch.Text = "";
             timer_stopwartch.Enabled = false;
+        }
+
+        private void numericUpDown_molec_count_ValueChanged(object sender, EventArgs e)
+        {
+            int current_count = SMolec.Count;
+            decimal new_value = numericUpDown_molec_count.Value;
+
+            if (new_value > current_count)
+            {
+                AddMolecul();
+            }else if (new_value < current_count)
+            {
+                RemoveMolec();
+            }
+        }
+
+        private void button_next_step_Click(object sender, EventArgs e)
+        {
+            if (!timer_main_area.Enabled)
+            {
+                RedrawArea();
+            }
         }
     }
 

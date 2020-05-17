@@ -65,6 +65,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.button_next_step = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -122,7 +123,6 @@
             // timer_main_area
             // 
             this.timer_main_area.Enabled = true;
-            this.timer_main_area.Interval = 300;
             this.timer_main_area.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label1
@@ -322,9 +322,11 @@
             0,
             0});
             this.numericUpDown_molec_count.Name = "numericUpDown_molec_count";
+            this.numericUpDown_molec_count.ReadOnly = true;
             this.numericUpDown_molec_count.Size = new System.Drawing.Size(100, 22);
             this.numericUpDown_molec_count.TabIndex = 17;
             this.numericUpDown_molec_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown_molec_count.ValueChanged += new System.EventHandler(this.numericUpDown_molec_count_ValueChanged);
             // 
             // textBox_stopwatch
             // 
@@ -403,10 +405,21 @@
             this.label10.TabIndex = 24;
             this.label10.Text = "Па";
             // 
+            // button_next_step
+            // 
+            this.button_next_step.Location = new System.Drawing.Point(142, 421);
+            this.button_next_step.Name = "button_next_step";
+            this.button_next_step.Size = new System.Drawing.Size(110, 52);
+            this.button_next_step.TabIndex = 25;
+            this.button_next_step.Text = "Наступний крок";
+            this.button_next_step.UseVisualStyleBackColor = true;
+            this.button_next_step.Click += new System.EventHandler(this.button_next_step_Click);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(772, 551);
+            this.Controls.Add(this.button_next_step);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
@@ -485,6 +498,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button button_next_step;
     }
 }
 
