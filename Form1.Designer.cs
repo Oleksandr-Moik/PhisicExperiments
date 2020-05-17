@@ -41,14 +41,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button_add_molec = new System.Windows.Forms.Button();
-            this.button_ = new System.Windows.Forms.Button();
+            this.button_remove_molec = new System.Windows.Forms.Button();
             this.button_clear = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox_temp = new System.Windows.Forms.TextBox();
             this.textBox_total_weight = new System.Windows.Forms.TextBox();
             this.textBox_presure = new System.Windows.Forms.TextBox();
             this.button_stop_resume = new System.Windows.Forms.Button();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.trackBar_temperature = new System.Windows.Forms.TrackBar();
             this.timer_stopwartch = new System.Windows.Forms.Timer(this.components);
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -59,18 +59,18 @@
             this.numericUpDown_molec_count = new System.Windows.Forms.NumericUpDown();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.numericUpDown_ = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.button_exit = new System.Windows.Forms.Button();
+            this.numericUpDown_temparature = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_molec_count)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_temparature)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -111,6 +111,7 @@
             this.вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
             this.вихідToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.вихідToolStripMenuItem.Text = "Вихід";
+            this.вихідToolStripMenuItem.Click += new System.EventHandler(this.button_exit_Click);
             // 
             // проПрограмуToolStripMenuItem
             // 
@@ -168,27 +169,27 @@
             this.button_add_molec.TabIndex = 5;
             this.button_add_molec.Text = "Додати";
             this.button_add_molec.UseVisualStyleBackColor = true;
-            this.button_add_molec.Click += new System.EventHandler(this.button1_Click);
+            this.button_add_molec.Click += new System.EventHandler(this.button_add_molec_Click);
             // 
-            // button_
+            // button_remove_molec
             // 
-            this.button_.Location = new System.Drawing.Point(661, 159);
-            this.button_.Name = "button_";
-            this.button_.Size = new System.Drawing.Size(100, 23);
-            this.button_.TabIndex = 6;
-            this.button_.Text = "Забрати";
-            this.button_.UseVisualStyleBackColor = true;
-            this.button_.Click += new System.EventHandler(this.button2_Click);
+            this.button_remove_molec.Location = new System.Drawing.Point(661, 159);
+            this.button_remove_molec.Name = "button_remove_molec";
+            this.button_remove_molec.Size = new System.Drawing.Size(100, 23);
+            this.button_remove_molec.TabIndex = 6;
+            this.button_remove_molec.Text = "Забрати";
+            this.button_remove_molec.UseVisualStyleBackColor = true;
+            this.button_remove_molec.Click += new System.EventHandler(this.button_remove_molec_Click);
             // 
             // button_clear
             // 
-            this.button_clear.Location = new System.Drawing.Point(501, 456);
+            this.button_clear.Location = new System.Drawing.Point(472, 439);
             this.button_clear.Name = "button_clear";
             this.button_clear.Size = new System.Drawing.Size(108, 37);
             this.button_clear.TabIndex = 7;
             this.button_clear.Text = "Очистити";
             this.button_clear.UseVisualStyleBackColor = true;
-            this.button_clear.Click += new System.EventHandler(this.button3_Click);
+            this.button_clear.Click += new System.EventHandler(this.button_clear_Click);
             // 
             // panel1
             // 
@@ -196,7 +197,7 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Location = new System.Drawing.Point(26, 97);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(499, 315);
+            this.panel1.Size = new System.Drawing.Size(500, 300);
             this.panel1.TabIndex = 8;
             // 
             // textBox_temp
@@ -235,17 +236,17 @@
             this.button_stop_resume.UseVisualStyleBackColor = true;
             this.button_stop_resume.Click += new System.EventHandler(this.button_stop_resume_Click);
             // 
-            // trackBar1
+            // trackBar_temperature
             // 
-            this.trackBar1.LargeChange = 2;
-            this.trackBar1.Location = new System.Drawing.Point(6, 21);
-            this.trackBar1.Maximum = 5;
-            this.trackBar1.Minimum = -5;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 90);
-            this.trackBar1.TabIndex = 13;
-            this.trackBar1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar1_MouseUp);
+            this.trackBar_temperature.LargeChange = 2;
+            this.trackBar_temperature.Location = new System.Drawing.Point(6, 21);
+            this.trackBar_temperature.Maximum = 5;
+            this.trackBar_temperature.Minimum = -5;
+            this.trackBar_temperature.Name = "trackBar_temperature";
+            this.trackBar_temperature.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar_temperature.Size = new System.Drawing.Size(45, 90);
+            this.trackBar_temperature.TabIndex = 13;
+            this.trackBar_temperature.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_temperatuere_MouseUp);
             // 
             // timer_stopwartch
             // 
@@ -274,7 +275,7 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.trackBar1);
+            this.groupBox1.Controls.Add(this.trackBar_temperature);
             this.groupBox1.Location = new System.Drawing.Point(276, 418);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(135, 119);
@@ -344,29 +345,34 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Секундомір";
             // 
-            // button1
+            // label11
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(662, 497);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 45);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Вихід";
-            this.button1.UseVisualStyleBackColor = true;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(131, 39);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(16, 16);
+            this.label11.TabIndex = 25;
+            this.label11.Text = "с";
             // 
-            // numericUpDown_
+            // button_exit
             // 
-            this.numericUpDown_.Location = new System.Drawing.Point(685, 207);
-            this.numericUpDown_.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDown_.Name = "numericUpDown_";
-            this.numericUpDown_.Size = new System.Drawing.Size(76, 22);
-            this.numericUpDown_.TabIndex = 21;
-            this.numericUpDown_.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.button_exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button_exit.ForeColor = System.Drawing.Color.Red;
+            this.button_exit.Location = new System.Drawing.Point(662, 497);
+            this.button_exit.Name = "button_exit";
+            this.button_exit.Size = new System.Drawing.Size(93, 45);
+            this.button_exit.TabIndex = 20;
+            this.button_exit.Text = "Вихід";
+            this.button_exit.UseVisualStyleBackColor = true;
+            this.button_exit.Click += new System.EventHandler(this.button_exit_Click);
+            // 
+            // numericUpDown_temparature
+            // 
+            this.numericUpDown_temparature.Location = new System.Drawing.Point(685, 207);
+            this.numericUpDown_temparature.Name = "numericUpDown_temparature";
+            this.numericUpDown_temparature.Size = new System.Drawing.Size(76, 22);
+            this.numericUpDown_temparature.TabIndex = 21;
+            this.numericUpDown_temparature.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label8
             // 
@@ -394,15 +400,6 @@
             this.label10.TabIndex = 24;
             this.label10.Text = "Па";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(131, 39);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(16, 16);
-            this.label11.TabIndex = 25;
-            this.label11.Text = "с";
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -410,8 +407,8 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.numericUpDown_);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.numericUpDown_temparature);
+            this.Controls.Add(this.button_exit);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.numericUpDown_molec_count);
             this.Controls.Add(this.groupBox1);
@@ -421,7 +418,7 @@
             this.Controls.Add(this.textBox_temp);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button_clear);
-            this.Controls.Add(this.button_);
+            this.Controls.Add(this.button_remove_molec);
             this.Controls.Add(this.button_add_molec);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -435,13 +432,13 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_molec_count)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_temparature)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -461,14 +458,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button_add_molec;
-        private System.Windows.Forms.Button button_;
+        private System.Windows.Forms.Button button_remove_molec;
         private System.Windows.Forms.Button button_clear;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox_temp;
         private System.Windows.Forms.TextBox textBox_total_weight;
         private System.Windows.Forms.TextBox textBox_presure;
         private System.Windows.Forms.Button button_stop_resume;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar trackBar_temperature;
         private System.Windows.Forms.Timer timer_stopwartch;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
@@ -479,8 +476,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.NumericUpDown numericUpDown_;
+        private System.Windows.Forms.Button button_exit;
+        private System.Windows.Forms.NumericUpDown numericUpDown_temparature;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;

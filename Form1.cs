@@ -18,12 +18,11 @@ namespace PhisicExperiments
 
         private int MAX_PRESURE = 10;
 
-        private int MAX_TEMP = 3000;
-        private int DEFAULT_TEMP = 300;
-        private int MIN_TEMP = 0;
+        private int MAX_TEMPR = 3000;
+        private int DEFAULT_TEMPR = 300;
 
         private int MIN_AREA_WIDTH = 150;
-        private int MAX_AREA_WIDTH = 450;
+        private int MAX_AREA_WIDTH = 500;
 
         private double Depth = 0.1;
         /// <summary>
@@ -35,74 +34,80 @@ namespace PhisicExperiments
         /// </summary>
         private double R = 8.41;
 
-        private Stack<Molecula> MoleculSteck;
+        private Stack<Molecula> SMolec;
 
         private double Volume;
         private double Tempreture;
         private double Total_Weight;
         private double Presure;
 
-        //private Thread th;
+        private double Stopwatch_time;
+
+
         public Form1()
         {
             InitializeComponent();
 
-            MoleculSteck = new Stack<Molecula>();
+            SMolec = new Stack<Molecula>();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            numericUpDown_molec_count.Maximum = MAX_MOLEC_CAPACITY;
+            numericUpDown_temparature.Maximum = MAX_TEMPR;
+
             Volume = panel1.Height * panel1.Width * Depth;
-            Tempreture = DEFAULT_TEMP;
+            Tempreture = DEFAULT_TEMPR;
             Total_Weight = 0;
             Presure = 0;
 
             for (int i = 0; i < 10; i++)
+
             {
-                RandomAddDebug();
+                AddMolecul();
             }
         }
 
         //add
-        private void button1_Click(object sender, EventArgs e)
+        private void button_add_molec_Click(object sender, EventArgs e)
         {
-            RandomAddDebug();
+            AddMolecul();
 
-            draw();
+            RedrawArea();
             UIupdate();
         }
 
-        private void RandomAddDebug()
+        private void AddMolecul()
         {
             Random rand = new Random();
             Molecula m = new Molecula(rand.Next(30, 420), rand.Next(30, 270));
             m.vectorX = rand.NextDouble() - 0.5;
             m.vectorY = rand.NextDouble()-0.5;
-            MoleculSteck.Push(m);
+            SMolec.Push(m);
         }
 
         //remove
-        private void button2_Click(object sender, EventArgs e)
+        private void button_remove_molec_Click(object sender, EventArgs e)
         {
-            MoleculSteck.Pop();
-            draw();
-            UIupdate();
-        }
-        //clear
-        private void button3_Click(object sender, EventArgs e)
-        {
-            MoleculSteck.Clear();
-            draw();
+            SMolec.Pop();
+            RedrawArea();
             UIupdate();
         }
 
-        private void draw()
+
+        //clear
+        private void button_clear_Click(object sender, EventArgs e)
+        {
+            SMolec.Clear();
+            RedrawArea();
+            UIupdate();
+        }
+
+        private void RedrawArea()
         {
             Bitmap bm = new Bitmap(panel1.Width, panel1.Height);
             Graphics gr = Graphics.FromImage(bm);
             gr.Clear(Color.FromArgb(255, 255, 192));
-
-            //Random rand = new Random();
 
             int heigh = panel1.Height;
             int width = panel1.Width;
@@ -110,7 +115,7 @@ namespace PhisicExperiments
             int step = 20;
 
             Rectangle rect;
-            foreach (Molecula m in MoleculSteck)
+            foreach (Molecula m in SMolec)
             {
                 x = m.GetX();
                 new_x = (int)Math.Round(x + (step * m.vectorX));
@@ -130,20 +135,18 @@ namespace PhisicExperiments
 
 
                 rect = new Rectangle(m.GetX(), m.GetY(), 10, 10);
-                //mol.SetLocation(new Point(rand.Next(30, 420), rand.Next(30, 270)));
                 gr.FillEllipse(Brushes.LightBlue, rect);
                 //gr.FillEllipse(new SolidBrush(Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255))), rect);
             }
             panel1.BackgroundImage = bm;
-            //draw();
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
             UIupdate();
 
-            if (MoleculSteck.Count != 0)
+            if (SMolec.Count != 0)
             {
-                Thread th = new Thread(draw);
+                Thread th = new Thread(RedrawArea);
                 th.IsBackground = true;
                 th.Start();
             }
@@ -151,10 +154,10 @@ namespace PhisicExperiments
 
         private void UIupdate()
         {
-            numericUpDown_molec_count.Text = MoleculSteck.Count.ToString();
-            textBox_total_weight.Text = Total_Weight.ToString();
-            textBox_temp.Text = Tempreture.ToString();
-            Presure = (MoleculSteck.Count * R * Tempreture) / (N_A * Volume);
+            numericUpDown_molec_count.Text = SMolec.Count.ToString(); // кількість молекул
+            textBox_total_weight.Text = Total_Weight.ToString(); // загальна маса
+            textBox_temp.Text = Tempreture.ToString(); // температура
+            Presure = (SMolec.Count * R * Tempreture) / (N_A * Volume); // 
             textBox_presure.Text = Presure.ToString();
         }
 
@@ -163,9 +166,14 @@ namespace PhisicExperiments
             timer_main_area.Enabled = !timer_main_area.Enabled;
         }
 
-        private void trackBar1_MouseUp(object sender, MouseEventArgs e)
+        private void trackBar_temperatuere_MouseUp(object sender, MouseEventArgs e)
         {
-            trackBar1.Value = 0;
+            trackBar_temperature.Value = 0;
+        }
+
+        private void button_exit_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 
