@@ -15,6 +15,7 @@ namespace PhisicExperiments
     public partial class Form1 : Form
     {
         private int MAX_MOLEC_CAPACITY = 50;
+
         private int MAX_PRESURE = 10;
 
         private int MAX_TEMP = 3000;
@@ -109,46 +110,26 @@ namespace PhisicExperiments
             int step = 20;
 
             Rectangle rect;
-            foreach (Molecula mol in MoleculSteck)
+            foreach (Molecula m in MoleculSteck)
             {
-                x = mol.GetX();
-                y = mol.GetY();
-
-                if (mol.vectorX > 0)//move right
+                x = m.GetX();
+                new_x = (int)Math.Round(x + (step * m.vectorX));
+                if ((new_x < 0 + step / 2)||(new_x > width - step/2))
                 {
-                    double nextX = x + (step * mol.vectorX);
-                    if (nextX < width - step)
-                    {
-                        new_x = (int)Math.Round(nextX);
-                    }
-                    else
-                    {
-                        mol.vectorX = -mol.vectorX;
-                        new_x = (int)Math.Round(x + (step * mol.vectorX));
-                    }
-                }
-                else if (mol.vectorX < 0)//move left
-                {
-                    double nextX = x + (5 * mol.vectorX);
-                    if (nextX > 0 + step)
-                    {
-                        new_x = (int)Math.Round(nextX);
-                    }
-                    else
-                    {
-                        mol.vectorX = -mol.vectorX;
-                        new_x = (int)Math.Round(x + (step * mol.vectorX));
-                    }
-                }
-                else
-                {
-                    new_x = mol.GetX();
+                    m.vectorX = -m.vectorX;
                 }
 
-                mol.SetLocation(new_x, mol.GetY());
+                y = m.GetY();
+                new_y = (int)Math.Round(y + (step * m.vectorY));
+                if ((new_y < 0 + step / 2) || (new_y > heigh - step / 2))
+                {
+                    m.vectorY = -m.vectorY;
+                }
+
+                m.SetLocation(new_x,new_y);
 
 
-                rect = new Rectangle(mol.GetX(), mol.GetY(), 10, 10);
+                rect = new Rectangle(m.GetX(), m.GetY(), 10, 10);
                 //mol.SetLocation(new Point(rand.Next(30, 420), rand.Next(30, 270)));
                 gr.FillEllipse(Brushes.LightBlue, rect);
                 //gr.FillEllipse(new SolidBrush(Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255))), rect);
@@ -156,33 +137,35 @@ namespace PhisicExperiments
             panel1.BackgroundImage = bm;
             //draw();
         }
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             UIupdate();
 
-            Thread th = new Thread(draw);
-            th.IsBackground = true;
-            th.Start();
+            if (MoleculSteck.Count != 0)
+            {
+                Thread th = new Thread(draw);
+                th.IsBackground = true;
+                th.Start();
+            }
         }
 
         private void UIupdate()
         {
-            textBox_count.Text = MoleculSteck.Count.ToString();
+            numericUpDown_molec_count.Text = MoleculSteck.Count.ToString();
             textBox_total_weight.Text = Total_Weight.ToString();
             textBox_temp.Text = Tempreture.ToString();
             Presure = (MoleculSteck.Count * R * Tempreture) / (N_A * Volume);
             textBox_presure.Text = Presure.ToString();
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //th.Suspend();
-        }
-
         private void button_stop_resume_Click(object sender, EventArgs e)
         {
-            timer1.Enabled = !timer1.Enabled;
+            timer_main_area.Enabled = !timer_main_area.Enabled;
+        }
+
+        private void trackBar1_MouseUp(object sender, MouseEventArgs e)
+        {
+            trackBar1.Value = 0;
         }
     }
 
