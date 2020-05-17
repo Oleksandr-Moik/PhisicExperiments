@@ -175,6 +175,24 @@ namespace PhisicExperiments
         {
             Close();
         }
+
+        private void button_stop_resume_stopwatch_Click(object sender, EventArgs e)
+        {
+            timer_stopwartch.Enabled = !timer_stopwartch.Enabled;
+        }
+
+        private void timer_stopwartch_Tick(object sender, EventArgs e)
+        {
+            Stopwatch_time++;
+            textBox_stopwatch.Text = Convert.ToString(Stopwatch_time/100.0);
+        }
+
+        private void button_reset_stopwatch_Click(object sender, EventArgs e)
+        {
+            Stopwatch_time = 0;
+            textBox_stopwatch.Text = "";
+            timer_stopwartch.Enabled = false;
+        }
     }
 
 

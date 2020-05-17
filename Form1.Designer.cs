@@ -50,14 +50,14 @@
             this.button_stop_resume = new System.Windows.Forms.Button();
             this.trackBar_temperature = new System.Windows.Forms.TrackBar();
             this.timer_stopwartch = new System.Windows.Forms.Timer(this.components);
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button_stop_resume_stopwatch = new System.Windows.Forms.Button();
+            this.button_reset_stopwatch = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDown_molec_count = new System.Windows.Forms.NumericUpDown();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_stopwatch = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.button_exit = new System.Windows.Forms.Button();
@@ -219,10 +219,10 @@
             // 
             // textBox_presure
             // 
-            this.textBox_presure.Location = new System.Drawing.Point(239, 60);
+            this.textBox_presure.Location = new System.Drawing.Point(285, 38);
             this.textBox_presure.Name = "textBox_presure";
             this.textBox_presure.ReadOnly = true;
-            this.textBox_presure.Size = new System.Drawing.Size(100, 22);
+            this.textBox_presure.Size = new System.Drawing.Size(253, 22);
             this.textBox_presure.TabIndex = 11;
             this.textBox_presure.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -251,24 +251,27 @@
             // timer_stopwartch
             // 
             this.timer_stopwartch.Interval = 10;
+            this.timer_stopwartch.Tick += new System.EventHandler(this.timer_stopwartch_Tick);
             // 
-            // button4
+            // button_stop_resume_stopwatch
             // 
-            this.button4.Location = new System.Drawing.Point(19, 62);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 44);
-            this.button4.TabIndex = 14;
-            this.button4.Text = "Почати/Зупини";
-            this.button4.UseVisualStyleBackColor = true;
+            this.button_stop_resume_stopwatch.Location = new System.Drawing.Point(19, 62);
+            this.button_stop_resume_stopwatch.Name = "button_stop_resume_stopwatch";
+            this.button_stop_resume_stopwatch.Size = new System.Drawing.Size(75, 44);
+            this.button_stop_resume_stopwatch.TabIndex = 14;
+            this.button_stop_resume_stopwatch.Text = "Почати/Зупини";
+            this.button_stop_resume_stopwatch.UseVisualStyleBackColor = true;
+            this.button_stop_resume_stopwatch.Click += new System.EventHandler(this.button_stop_resume_stopwatch_Click);
             // 
-            // button5
+            // button_reset_stopwatch
             // 
-            this.button5.Location = new System.Drawing.Point(100, 62);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(94, 44);
-            this.button5.TabIndex = 15;
-            this.button5.Text = "Скинути";
-            this.button5.UseVisualStyleBackColor = true;
+            this.button_reset_stopwatch.Location = new System.Drawing.Point(100, 62);
+            this.button_reset_stopwatch.Name = "button_reset_stopwatch";
+            this.button_reset_stopwatch.Size = new System.Drawing.Size(94, 44);
+            this.button_reset_stopwatch.TabIndex = 15;
+            this.button_reset_stopwatch.Text = "Скинути";
+            this.button_reset_stopwatch.UseVisualStyleBackColor = true;
+            this.button_reset_stopwatch.Click += new System.EventHandler(this.button_reset_stopwatch_Click);
             // 
             // groupBox1
             // 
@@ -323,21 +326,21 @@
             this.numericUpDown_molec_count.TabIndex = 17;
             this.numericUpDown_molec_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox1
+            // textBox_stopwatch
             // 
-            this.textBox1.Location = new System.Drawing.Point(19, 36);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(106, 22);
-            this.textBox1.TabIndex = 18;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBox_stopwatch.Location = new System.Drawing.Point(19, 36);
+            this.textBox_stopwatch.Name = "textBox_stopwatch";
+            this.textBox_stopwatch.ReadOnly = true;
+            this.textBox_stopwatch.Size = new System.Drawing.Size(106, 22);
+            this.textBox_stopwatch.TabIndex = 18;
+            this.textBox_stopwatch.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.button5);
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.button4);
+            this.groupBox2.Controls.Add(this.button_reset_stopwatch);
+            this.groupBox2.Controls.Add(this.textBox_stopwatch);
+            this.groupBox2.Controls.Add(this.button_stop_resume_stopwatch);
             this.groupBox2.Location = new System.Drawing.Point(555, 285);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(200, 127);
@@ -467,14 +470,14 @@
         private System.Windows.Forms.Button button_stop_resume;
         private System.Windows.Forms.TrackBar trackBar_temperature;
         private System.Windows.Forms.Timer timer_stopwartch;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button_stop_resume_stopwatch;
+        private System.Windows.Forms.Button button_reset_stopwatch;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown numericUpDown_molec_count;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_stopwatch;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_exit;
         private System.Windows.Forms.NumericUpDown numericUpDown_temparature;
