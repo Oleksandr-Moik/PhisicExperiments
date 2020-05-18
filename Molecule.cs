@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace PhisicExperiments
 {
-    public class Molecula
+    public class Molecule
     {
         private double Temperature;
 
@@ -11,12 +11,12 @@ namespace PhisicExperiments
         private int Y;
         private Vector vector;
 
-        public Molecula()
+        public Molecule()
         {
 
         }
 
-        public Molecula(Point p, double t, Vector v)
+        public Molecule(Point p, double t, Vector v)
         {
             X = p.X;
             Y = p.Y;
@@ -29,9 +29,9 @@ namespace PhisicExperiments
             return Temperature;
         }
 
-        public void SetTemperature(double tempr)
+        public void SetTemperature(double temperature)
         {
-            Temperature = tempr;
+            Temperature = temperature;
         }
 
         public void ChangeTemperature(double delta)

@@ -119,7 +119,7 @@
             this.вихідToolStripMenuItem.Name = "вихідToolStripMenuItem";
             this.вихідToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.вихідToolStripMenuItem.Text = "Вихід";
-            this.вихідToolStripMenuItem.Click += new System.EventHandler(this.button_exit_Click);
+            this.вихідToolStripMenuItem.Click += new System.EventHandler(this.Exit_Click);
             // 
             // проПрограмуToolStripMenuItem
             // 
@@ -177,7 +177,7 @@
             this.button_clear.TabIndex = 7;
             this.button_clear.Text = "Очистити";
             this.button_clear.UseVisualStyleBackColor = true;
-            this.button_clear.Click += new System.EventHandler(this.button_clear_Click);
+            this.button_clear.Click += new System.EventHandler(this.Button_clear_Click);
             // 
             // panel1
             // 
@@ -361,7 +361,7 @@
             this.button_exit.TabIndex = 20;
             this.button_exit.Text = "Вихід";
             this.button_exit.UseVisualStyleBackColor = true;
-            this.button_exit.Click += new System.EventHandler(this.button_exit_Click);
+            this.button_exit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // numericUpDown_temparature
             // 
