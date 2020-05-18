@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.налаштуванняToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.вихідToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.проПрограмуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer_main_area = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -45,9 +45,9 @@
             this.textBox_temp = new System.Windows.Forms.TextBox();
             this.textBox_mole = new System.Windows.Forms.TextBox();
             this.textBox_presure = new System.Windows.Forms.TextBox();
-            this.button_stop_resume = new System.Windows.Forms.Button();
-            this.trackBar_temperature = new System.Windows.Forms.TrackBar();
-            this.timer_stopwartch = new System.Windows.Forms.Timer(this.components);
+            this.button_stop_resume_update = new System.Windows.Forms.Button();
+            this.trackBar_temperature_increment = new System.Windows.Forms.TrackBar();
+            this.timer_stopwatch = new System.Windows.Forms.Timer(this.components);
             this.button_stop_resume_stopwatch = new System.Windows.Forms.Button();
             this.button_reset_stopwatch = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -59,11 +59,10 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.button_exit = new System.Windows.Forms.Button();
-            this.numericUpDown_temparature = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown_temparature_new_molec = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.timed_add_remove_molecules = new System.Windows.Forms.Timer(this.components);
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -73,12 +72,15 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.timer_updata_fiels = new System.Windows.Forms.Timer(this.components);
+            this.flask1 = new PhisicExperiments.Flask();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature_increment)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_molec_count)).BeginInit();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_temparature)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_temparature_new_molec)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -132,12 +134,6 @@
             this.проПрограмуToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
             this.проПрограмуToolStripMenuItem.Text = "Про програму";
             // 
-            // timer_main_area
-            // 
-            this.timer_main_area.Enabled = true;
-            this.timer_main_area.Interval = 33;
-            this.timer_main_area.Tick += new System.EventHandler(this.timer_main_area_Tick);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -188,9 +184,10 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(12, 125);
+            this.panel1.Controls.Add(this.flask1);
+            this.panel1.Location = new System.Drawing.Point(12, 99);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(500, 300);
+            this.panel1.Size = new System.Drawing.Size(500, 314);
             this.panel1.TabIndex = 8;
             // 
             // textBox_temp
@@ -220,33 +217,33 @@
             this.textBox_presure.TabIndex = 11;
             this.textBox_presure.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // button_stop_resume
+            // button_stop_resume_updata
             // 
-            this.button_stop_resume.Location = new System.Drawing.Point(10, 22);
-            this.button_stop_resume.Name = "button_stop_resume";
-            this.button_stop_resume.Size = new System.Drawing.Size(110, 36);
-            this.button_stop_resume.TabIndex = 0;
-            this.button_stop_resume.Text = "Зупинити";
-            this.button_stop_resume.UseVisualStyleBackColor = true;
-            this.button_stop_resume.Click += new System.EventHandler(this.button_stop_resume_Click);
+            this.button_stop_resume_update.Location = new System.Drawing.Point(10, 22);
+            this.button_stop_resume_update.Name = "button_stop_resume_updata";
+            this.button_stop_resume_update.Size = new System.Drawing.Size(110, 36);
+            this.button_stop_resume_update.TabIndex = 0;
+            this.button_stop_resume_update.Text = "Зупинити";
+            this.button_stop_resume_update.UseVisualStyleBackColor = true;
+            this.button_stop_resume_update.Click += new System.EventHandler(this.button_stop_resume_update_Click);
             // 
             // trackBar_temperature
             // 
-            this.trackBar_temperature.LargeChange = 2;
-            this.trackBar_temperature.Location = new System.Drawing.Point(6, 21);
-            this.trackBar_temperature.Maximum = 5;
-            this.trackBar_temperature.Minimum = -5;
-            this.trackBar_temperature.Name = "trackBar_temperature";
-            this.trackBar_temperature.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_temperature.Size = new System.Drawing.Size(45, 90);
-            this.trackBar_temperature.TabIndex = 13;
-            this.trackBar_temperature.Scroll += new System.EventHandler(this.trackBar_temperature_Scroll);
-            this.trackBar_temperature.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_temperatuere_MouseUp);
+            this.trackBar_temperature_increment.LargeChange = 2;
+            this.trackBar_temperature_increment.Location = new System.Drawing.Point(6, 21);
+            this.trackBar_temperature_increment.Maximum = 5;
+            this.trackBar_temperature_increment.Minimum = -5;
+            this.trackBar_temperature_increment.Name = "trackBar_temperature";
+            this.trackBar_temperature_increment.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar_temperature_increment.Size = new System.Drawing.Size(45, 90);
+            this.trackBar_temperature_increment.TabIndex = 13;
+            this.trackBar_temperature_increment.Scroll += new System.EventHandler(this.trackBar_temperature_increment_Scroll);
+            this.trackBar_temperature_increment.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_temperatuere_MouseUp);
             // 
             // timer_stopwartch
             // 
-            this.timer_stopwartch.Interval = 10;
-            this.timer_stopwartch.Tick += new System.EventHandler(this.timer_stopwartch_Tick);
+            this.timer_stopwatch.Interval = 10;
+            this.timer_stopwatch.Tick += new System.EventHandler(this.timer_stopwartch_Tick);
             // 
             // button_stop_resume_stopwatch
             // 
@@ -273,8 +270,8 @@
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.trackBar_temperature);
-            this.groupBox1.Location = new System.Drawing.Point(542, 275);
+            this.groupBox1.Controls.Add(this.trackBar_temperature_increment);
+            this.groupBox1.Location = new System.Drawing.Point(541, 294);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(155, 119);
             this.groupBox1.TabIndex = 16;
@@ -294,6 +291,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.label6.Location = new System.Drawing.Point(37, 59);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 16);
@@ -340,7 +338,7 @@
             this.groupBox2.Controls.Add(this.button_reset_stopwatch);
             this.groupBox2.Controls.Add(this.textBox_stopwatch);
             this.groupBox2.Controls.Add(this.button_stop_resume_stopwatch);
-            this.groupBox2.Location = new System.Drawing.Point(171, 431);
+            this.groupBox2.Location = new System.Drawing.Point(12, 419);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(232, 93);
             this.groupBox2.TabIndex = 19;
@@ -360,7 +358,7 @@
             // 
             this.button_exit.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_exit.ForeColor = System.Drawing.Color.Red;
-            this.button_exit.Location = new System.Drawing.Point(604, 479);
+            this.button_exit.Location = new System.Drawing.Point(582, 443);
             this.button_exit.Name = "button_exit";
             this.button_exit.Size = new System.Drawing.Size(93, 45);
             this.button_exit.TabIndex = 20;
@@ -370,25 +368,26 @@
             // 
             // numericUpDown_temparature
             // 
-            this.numericUpDown_temparature.Location = new System.Drawing.Point(57, 198);
-            this.numericUpDown_temparature.Minimum = new decimal(new int[] {
+            this.numericUpDown_temparature_new_molec.Location = new System.Drawing.Point(57, 168);
+            this.numericUpDown_temparature_new_molec.Minimum = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.numericUpDown_temparature.Name = "numericUpDown_temparature";
-            this.numericUpDown_temparature.Size = new System.Drawing.Size(92, 22);
-            this.numericUpDown_temparature.TabIndex = 21;
-            this.numericUpDown_temparature.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown_temparature.Value = new decimal(new int[] {
+            this.numericUpDown_temparature_new_molec.Name = "numericUpDown_temparature";
+            this.numericUpDown_temparature_new_molec.Size = new System.Drawing.Size(92, 22);
+            this.numericUpDown_temparature_new_molec.TabIndex = 21;
+            this.numericUpDown_temparature_new_molec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown_temparature_new_molec.Value = new decimal(new int[] {
             50,
             0,
             0,
             0});
+            this.numericUpDown_temparature_new_molec.ValueChanged += new System.EventHandler(this.numericUpDown_temparature_new_molec_ValueChanged);
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(27, 158);
+            this.label8.Location = new System.Drawing.Point(27, 128);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 37);
             this.label8.TabIndex = 22;
@@ -413,11 +412,6 @@
             this.label10.TabIndex = 26;
             this.label10.Text = "атм";
             // 
-            // timed_add_remove_molecules
-            // 
-            this.timed_add_remove_molecules.Interval = 1;
-            this.timed_add_remove_molecules.Tick += new System.EventHandler(this.timer_add_remove_molecules_Tick);
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -438,7 +432,7 @@
             this.groupBox3.Controls.Add(this.textBox_temp);
             this.groupBox3.Controls.Add(this.textBox_mole);
             this.groupBox3.Controls.Add(this.textBox_presure);
-            this.groupBox3.Location = new System.Drawing.Point(12, 38);
+            this.groupBox3.Location = new System.Drawing.Point(12, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(500, 81);
             this.groupBox3.TabIndex = 28;
@@ -447,10 +441,10 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.button_stop_resume);
-            this.groupBox4.Location = new System.Drawing.Point(12, 431);
+            this.groupBox4.Controls.Add(this.button_stop_resume_update);
+            this.groupBox4.Location = new System.Drawing.Point(555, 218);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(133, 70);
+            this.groupBox4.Size = new System.Drawing.Size(126, 70);
             this.groupBox4.TabIndex = 29;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Рух молекул";
@@ -465,11 +459,11 @@
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.numericUpDown_molec_count);
             this.groupBox5.Controls.Add(this.button_clear);
-            this.groupBox5.Controls.Add(this.numericUpDown_temparature);
+            this.groupBox5.Controls.Add(this.numericUpDown_temparature_new_molec);
             this.groupBox5.Controls.Add(this.label8);
-            this.groupBox5.Location = new System.Drawing.Point(518, 38);
+            this.groupBox5.Location = new System.Drawing.Point(518, 12);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 231);
+            this.groupBox5.Size = new System.Drawing.Size(200, 200);
             this.groupBox5.TabIndex = 26;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Молекули";
@@ -523,11 +517,27 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.Buttons_add_remove_Click);
             // 
+            // timer_updata_fiels
+            // 
+            this.timer_updata_fiels.Enabled = true;
+            this.timer_updata_fiels.Interval = 30;
+            this.timer_updata_fiels.Tick += new System.EventHandler(this.timer_update_fiels_Tick);
+            // 
+            // flask1
+            // 
+            this.flask1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("flask1.BackgroundImage")));
+            this.flask1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flask1.Location = new System.Drawing.Point(0, 0);
+            this.flask1.Margin = new System.Windows.Forms.Padding(15, 12, 15, 12);
+            this.flask1.Name = "flask1";
+            this.flask1.Size = new System.Drawing.Size(498, 312);
+            this.flask1.TabIndex = 0;
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(732, 553);
+            this.ClientSize = new System.Drawing.Size(732, 524);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -546,13 +556,14 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature)).EndInit();
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature_increment)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_molec_count)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_temparature)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_temparature_new_molec)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -567,7 +578,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem проПрограмуToolStripMenuItem;
-        private System.Windows.Forms.Timer timer_main_area;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem налаштуванняToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -581,9 +591,9 @@
         private System.Windows.Forms.TextBox textBox_temp;
         private System.Windows.Forms.TextBox textBox_mole;
         private System.Windows.Forms.TextBox textBox_presure;
-        private System.Windows.Forms.Button button_stop_resume;
-        private System.Windows.Forms.TrackBar trackBar_temperature;
-        private System.Windows.Forms.Timer timer_stopwartch;
+        private System.Windows.Forms.Button button_stop_resume_update;
+        private System.Windows.Forms.TrackBar trackBar_temperature_increment;
+        private System.Windows.Forms.Timer timer_stopwatch;
         private System.Windows.Forms.Button button_stop_resume_stopwatch;
         private System.Windows.Forms.Button button_reset_stopwatch;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -594,12 +604,11 @@
         private System.Windows.Forms.TextBox textBox_stopwatch;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button_exit;
-        private System.Windows.Forms.NumericUpDown numericUpDown_temparature;
+        private System.Windows.Forms.NumericUpDown numericUpDown_temparature_new_molec;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Timer timed_add_remove_molecules;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -609,6 +618,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label_molecules_delta;
+        private Flask flask1;
+        private System.Windows.Forms.Timer timer_updata_fiels;
     }
 }
 
