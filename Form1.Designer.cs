@@ -231,6 +231,7 @@
             this.trackBar_temperature.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBar_temperature.Size = new System.Drawing.Size(45, 90);
             this.trackBar_temperature.TabIndex = 13;
+            this.trackBar_temperature.Scroll += new System.EventHandler(this.trackBar_temperature_Scroll);
             this.trackBar_temperature.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_temperatuere_MouseUp);
             // 
             // timer_stopwartch

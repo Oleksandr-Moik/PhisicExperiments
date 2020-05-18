@@ -25,16 +25,12 @@ namespace PhisicExperiments
         private int MAX_AREA_WIDTH = 500;
 
         private double Depth = 0.1e-23;
-        /// avogadro number
-        private double N_A = 6.02e+23;
-        /// universe gas constant
-        private double R = 8.31;
+        
 
         private Stack<Molecula> SMolec;
 
         private double Volume;
-        private double Tempreture;
-        private double Total_Weight;
+        private double Temperature;
         private double Presure;
 
         private double Stopwatch_time;
@@ -61,16 +57,11 @@ namespace PhisicExperiments
             SMolec.Clear();
 
             Volume = panel1.Height * panel1.Width * Depth;
-            Tempreture = 0;
-            Total_Weight = 0;
+            Temperature = 0;
             Presure = 0;
             Stopwatch_time = 0;
-            UpdateValues();
 
-            //timer_main_area.Enabled = false;
-            //timer_stopwartch.Enabled = false;
-            for (int i = 0; i < 1; i++)
-                AddMolec();
+            //for (int i = 0; i < 1; i++)AddMolec();
             RedrawArea();
         }
 
@@ -80,12 +71,6 @@ namespace PhisicExperiments
         private double GetTemperatureNewMolec()
         {
             return Convert.ToDouble(numericUpDown_temparature.Value);
-        }
-
-        // add new molec
-        private void button_add_molec_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void AddMolec()
@@ -116,9 +101,8 @@ namespace PhisicExperiments
             if (SMolec.Count != 0)
             {
                 SMolec.Pop();
+                RedrawArea();
             }
-
-            RedrawArea();
         }
 
         //clear
@@ -145,14 +129,6 @@ namespace PhisicExperiments
             }
         }
 
-        private void button_next_step_Click(object sender, EventArgs e)
-        {
-            if (!timer_main_area.Enabled)
-            {
-                RedrawArea();
-            }
-        }
-
         // display molec
         // draw elips
         // move (calc new location) every molec
@@ -162,11 +138,6 @@ namespace PhisicExperiments
             Graphics gr = Graphics.FromImage(bm);
             gr.Clear(Color.FromArgb(255, 255, 192));
 
-            int heigh = panel1.Height;
-            int width = panel1.Width;
-            int new_x, new_y;
-            int step = 20;
-
             Rectangle rect;
 
             try
@@ -175,23 +146,7 @@ namespace PhisicExperiments
                 {
                     if (timer_main_area.Enabled)
                     {
-                        Vector vec = m.GetVector();
-                        Point loc = m.GetLocation();
-
-                        new_x = (int)Math.Round(loc.X + (step * vec.X));
-                        if ((new_x < 0 + step / 2) || (new_x > width - step / 2))
-                        {
-                            vec.X = -vec.X;
-                        }
-
-
-                        new_y = (int)Math.Round(loc.Y + (step * vec.Y));
-                        if ((new_y < 0 + step / 2) || (new_y > heigh - step / 2))
-                        {
-                            vec.Y = -vec.Y;
-                        }
-
-                        m.SetLocation(new_x, new_y);
+                        m.SetLocation(NextLocation(m));
                     }
 
                     rect = new Rectangle(m.GetX(), m.GetY(), 10, 10);
@@ -207,6 +162,30 @@ namespace PhisicExperiments
                 return;
             }
             panel1.BackgroundImage = bm;
+        }
+
+        private Point NextLocation(Molecula m)
+        {
+            int heigh = panel1.Height;
+            int width = panel1.Width;
+            int step = 20;
+
+            Vector vec = m.GetVector();
+            Point loc = m.GetLocation();
+
+            int new_x = (int)Math.Round(loc.X + (step * vec.X));
+            if ((new_x < 0 + step / 2) || (new_x > width - step / 2))
+            {
+                vec.X = -vec.X;
+            }
+
+            int new_y = (int)Math.Round(loc.Y + (step * vec.Y));
+            if ((new_y < 0 + step / 2) || (new_y > heigh - step / 2))
+            {
+                vec.Y = -vec.Y;
+            }
+
+            return new Point(new_x, new_y);
         }
 
         private void timer_main_area_Tick(object sender, EventArgs e)
@@ -236,16 +215,12 @@ namespace PhisicExperiments
 
         private void UpdateValues()
         {
-            CalcValues();
             numericUpDown_molec_count.Text = FormatDouble(SMolec.Count); // кількість молекул
-            textBox_temp.Text = FormatDouble(Tempreture); // температура
-            textBox_presure.Text = FormatDouble(Presure); // тиск
-        }
+            //Temperature = CalcAvaregeTemperature();
+            textBox_temp.Text = FormatDouble(Temperature); // температура
+            textBox_presure.Text = FormatDouble(PhisicCalc.CalcPresure(SMolec.Count, Temperature, Volume)); 
+            textBox_mole.Text = FormatDouble(PhisicCalc.CalcMole(SMolec.Count));
 
-        private void CalcValues()
-        {
-            CalcAvaregeTemperature();
-            CalcPresure();
         }
 
         private String FormatDouble(double value)
@@ -253,29 +228,23 @@ namespace PhisicExperiments
             return String.Format("{0:0.00}", value);
         }
 
-        private void CalcPresure()
-        {
-            double mole = SMolec.Count / N_A * 0.1e+25;
-            textBox_mole.Text = FormatDouble(mole);
-
-            Presure = SMolec.Count * 1.83e-23 * Tempreture / Volume;
-            //Presure = (mole * R * Tempreture) / (Volume);
-        }
-
-        private void CalcAvaregeTemperature()
+        private double CalcAvaregeTemperature()
         {
             if (SMolec.Count != 0)
             {
                 double calc = SMolec.Peek().GetTemperature();
+                Console.WriteLine("**Start tempr**");
                 foreach (Molecula m in SMolec)
                 {
                     calc = (calc + m.GetTemperature()) / 2;
+                    Console.WriteLine($"{calc}  {m.GetTemperature()}    -- {Temperature}");
                 }
-                Tempreture = calc;
+                Console.WriteLine("**END tempr**");
+                return calc;
             }
             else
             {
-                Tempreture = 0;
+                return 0;
             }
         }
 
@@ -332,6 +301,11 @@ namespace PhisicExperiments
             UpdateValues();
             ChangeTextEnablesStopwatch();
             ChangeTextEnablesArea();
+        }
+
+        private void trackBar_temperature_Scroll(object sender, EventArgs e)
+        {
+
         }
     }
 
