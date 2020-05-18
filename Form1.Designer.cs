@@ -63,11 +63,16 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.timer_ui_update = new System.Windows.Forms.Timer(this.components);
+            this.timed_add_remove_molecules = new System.Windows.Forms.Timer(this.components);
             this.label12 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label_molecules_delta = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -163,7 +168,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 18);
+            this.label4.Location = new System.Drawing.Point(27, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(141, 16);
             this.label4.TabIndex = 4;
@@ -171,9 +176,9 @@
             // 
             // button_clear
             // 
-            this.button_clear.Location = new System.Drawing.Point(9, 65);
+            this.button_clear.Location = new System.Drawing.Point(54, 99);
             this.button_clear.Name = "button_clear";
-            this.button_clear.Size = new System.Drawing.Size(119, 36);
+            this.button_clear.Size = new System.Drawing.Size(96, 26);
             this.button_clear.TabIndex = 7;
             this.button_clear.Text = "Очистити";
             this.button_clear.UseVisualStyleBackColor = true;
@@ -269,7 +274,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.trackBar_temperature);
-            this.groupBox1.Location = new System.Drawing.Point(527, 275);
+            this.groupBox1.Location = new System.Drawing.Point(542, 275);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(155, 119);
             this.groupBox1.TabIndex = 16;
@@ -307,7 +312,7 @@
             // 
             // numericUpDown_molec_count
             // 
-            this.numericUpDown_molec_count.Location = new System.Drawing.Point(9, 37);
+            this.numericUpDown_molec_count.Location = new System.Drawing.Point(25, 34);
             this.numericUpDown_molec_count.Maximum = new decimal(new int[] {
             50,
             0,
@@ -315,7 +320,7 @@
             0});
             this.numericUpDown_molec_count.Name = "numericUpDown_molec_count";
             this.numericUpDown_molec_count.ReadOnly = true;
-            this.numericUpDown_molec_count.Size = new System.Drawing.Size(119, 22);
+            this.numericUpDown_molec_count.Size = new System.Drawing.Size(96, 22);
             this.numericUpDown_molec_count.TabIndex = 17;
             this.numericUpDown_molec_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown_molec_count.ValueChanged += new System.EventHandler(this.numericUpDown_molec_count_ValueChanged);
@@ -365,19 +370,30 @@
             // 
             // numericUpDown_temparature
             // 
-            this.numericUpDown_temparature.Location = new System.Drawing.Point(9, 144);
+            this.numericUpDown_temparature.Location = new System.Drawing.Point(57, 198);
+            this.numericUpDown_temparature.Minimum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             this.numericUpDown_temparature.Name = "numericUpDown_temparature";
-            this.numericUpDown_temparature.Size = new System.Drawing.Size(108, 22);
+            this.numericUpDown_temparature.Size = new System.Drawing.Size(92, 22);
             this.numericUpDown_temparature.TabIndex = 21;
             this.numericUpDown_temparature.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown_temparature.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(6, 104);
+            this.label8.Location = new System.Drawing.Point(27, 158);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 37);
             this.label8.TabIndex = 22;
             this.label8.Text = "Температура нових молекул";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label9
             // 
@@ -397,9 +413,10 @@
             this.label10.TabIndex = 26;
             this.label10.Text = "атм";
             // 
-            // timer_ui_update
+            // timed_add_remove_molecules
             // 
-            this.timer_ui_update.Tick += new System.EventHandler(this.timer_ui_update_Tick);
+            this.timed_add_remove_molecules.Interval = 1;
+            this.timed_add_remove_molecules.Tick += new System.EventHandler(this.timer_add_remove_molecules_Tick);
             // 
             // label12
             // 
@@ -440,6 +457,11 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.label_molecules_delta);
+            this.groupBox5.Controls.Add(this.button4);
+            this.groupBox5.Controls.Add(this.button3);
+            this.groupBox5.Controls.Add(this.button2);
+            this.groupBox5.Controls.Add(this.button1);
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.numericUpDown_molec_count);
             this.groupBox5.Controls.Add(this.button_clear);
@@ -447,10 +469,59 @@
             this.groupBox5.Controls.Add(this.label8);
             this.groupBox5.Location = new System.Drawing.Point(518, 38);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 185);
+            this.groupBox5.Size = new System.Drawing.Size(200, 231);
             this.groupBox5.TabIndex = 26;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Молекули";
+            // 
+            // label_molecules_delta
+            // 
+            this.label_molecules_delta.AutoSize = true;
+            this.label_molecules_delta.Location = new System.Drawing.Point(127, 36);
+            this.label_molecules_delta.Name = "label_molecules_delta";
+            this.label_molecules_delta.Size = new System.Drawing.Size(16, 16);
+            this.label_molecules_delta.TabIndex = 27;
+            this.label_molecules_delta.Text = "0";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(25, 67);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(23, 26);
+            this.button4.TabIndex = 26;
+            this.button4.Text = "<";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.Buttons_add_remove_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(54, 67);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(45, 26);
+            this.button3.TabIndex = 25;
+            this.button3.Text = "<<";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Buttons_add_remove_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(105, 67);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(45, 26);
+            this.button2.TabIndex = 24;
+            this.button2.Text = ">>";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.Buttons_add_remove_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(156, 67);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(23, 26);
+            this.button1.TabIndex = 23;
+            this.button1.Text = ">";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Buttons_add_remove_Click);
             // 
             // Form1
             // 
@@ -528,11 +599,16 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Timer timer_ui_update;
+        private System.Windows.Forms.Timer timed_add_remove_molecules;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label_molecules_delta;
     }
 }
 
