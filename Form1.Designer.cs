@@ -91,6 +91,7 @@
             this.menuStrip1.Size = new System.Drawing.Size(732, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Visible = false;
             // 
             // файлToolStripMenuItem
             // 
@@ -129,6 +130,7 @@
             // timer_main_area
             // 
             this.timer_main_area.Enabled = true;
+            this.timer_main_area.Interval = 33;
             this.timer_main_area.Tick += new System.EventHandler(this.timer_main_area_Tick);
             // 
             // label1
@@ -202,6 +204,7 @@
             this.textBox_mole.ReadOnly = true;
             this.textBox_mole.Size = new System.Drawing.Size(100, 22);
             this.textBox_mole.TabIndex = 10;
+            this.textBox_mole.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // textBox_presure
             // 
@@ -210,6 +213,7 @@
             this.textBox_presure.ReadOnly = true;
             this.textBox_presure.Size = new System.Drawing.Size(100, 22);
             this.textBox_presure.TabIndex = 11;
+            this.textBox_presure.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // button_stop_resume
             // 
@@ -265,7 +269,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.trackBar_temperature);
-            this.groupBox1.Location = new System.Drawing.Point(527, 306);
+            this.groupBox1.Location = new System.Drawing.Point(527, 275);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(155, 119);
             this.groupBox1.TabIndex = 16;
@@ -275,6 +279,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.label7.Location = new System.Drawing.Point(37, 95);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(88, 16);
@@ -293,6 +298,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.label5.Location = new System.Drawing.Point(37, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 16);
@@ -393,7 +399,6 @@
             // 
             // timer_ui_update
             // 
-            this.timer_ui_update.Enabled = true;
             this.timer_ui_update.Tick += new System.EventHandler(this.timer_ui_update_Tick);
             // 
             // label12
@@ -450,6 +455,7 @@
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(732, 553);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);

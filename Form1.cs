@@ -14,26 +14,24 @@ namespace PhisicExperiments
 {
     public partial class Form1 : Form
     {
-        private int MAX_MOLEC_CAPACITY = 50000;
+        private const String OUTPUT_DOUBLE_PATTERN = "{0:0.00}";
+        private const String RESUME_STR = "Відновити";
+        private const String STOP_STR = "Зупинити";
+        private const String START_STR = "Почати";
 
-        private int MAX_PRESURE = 10;
+        private const int MAX_MOLEC_CAPACITY = 50000;
+        private const int MAX_TEMPR = 3000;
+        private const int DEFAULT_TEMPR = 300;
 
-        private int MAX_TEMPR = 3000;
-        private int DEFAULT_TEMPR = 500;
-
-        private int MIN_AREA_WIDTH = 150;
-        private int MAX_AREA_WIDTH = 500;
-
-        private double Depth = 0.1e-23;
-        
+        private const double Depth = 0.1e-23;
 
         private Stack<Molecula> SMolec;
 
         private double Volume;
-        private double Temperature;
-        private double Presure;
+        private double AverageTemperature;
 
         private double Stopwatch_time;
+        Bitmap bm;// = new Bitmap(panel1.Width, panel1.Height);
 
         public Form1()
         {
@@ -52,70 +50,44 @@ namespace PhisicExperiments
 
         private void SetDefaults()
         {
+            timer_ui_update.Enabled = false;
+
             numericUpDown_temparature.Value = DEFAULT_TEMPR;
 
             SMolec.Clear();
 
             Volume = panel1.Height * panel1.Width * Depth;
-            Temperature = 0;
-            Presure = 0;
+            AverageTemperature = 0;
             Stopwatch_time = 0;
 
-            //for (int i = 0; i < 1; i++)AddMolec();
+            for (int i = 0; i < 5; i++) AddMolec();
+            
+            DisplayNewProperties();
             RedrawArea();
+
+            timer_ui_update.Enabled = true;
         }
 
-
-
-        // get value from temp new molecul
-        private double GetTemperatureNewMolec()
+        private int MinusOrPlus()
         {
-            return Convert.ToDouble(numericUpDown_temparature.Value);
-        }
-
-        private void AddMolec()
-        {
-            if (SMolec.Count < MAX_MOLEC_CAPACITY)
+            Random rand = new Random(2);
+            if (rand.NextDouble() - 0.5 > 0)
             {
-                Random rand = new Random();
-
-                double temperature = GetTemperatureNewMolec();
-                Vector vector = new Vector(rand.NextDouble() - 0.5, rand.NextDouble() - 0.5);
-                Point point = new Point(rand.Next(30, 420), rand.Next(30, 270));
-
-                Molecula m = new Molecula(point, temperature, vector);
-                SMolec.Push(m);
-                
-                RedrawArea();
+                return 1;
+            }
+            else
+            {
+                return -1;
             }
         }
 
-        // remove
-        private void button_remove_molec_Click(object sender, EventArgs e)
+        private String FormatDouble(double value)
         {
-            RemoveMolec();
+            return String.Format(OUTPUT_DOUBLE_PATTERN, value);
         }
-
-        private void RemoveMolec()
-        {
-            if (SMolec.Count != 0)
-            {
-                SMolec.Pop();
-                RedrawArea();
-            }
-        }
-
-        //clear
-        private void button_clear_Click(object sender, EventArgs e)
-        {
-            SetDefaults();
-        }
-
 
         private void numericUpDown_molec_count_ValueChanged(object sender, EventArgs e)
         {
-            //timer_main_area.Enabled = true;
-
             int current_count = SMolec.Count;
             decimal new_value = numericUpDown_molec_count.Value;
 
@@ -127,19 +99,51 @@ namespace PhisicExperiments
             {
                 RemoveMolec();
             }
+            DisplayNewProperties();
         }
 
-        // display molec
-        // draw elips
-        // move (calc new location) every molec
+        private void AddMolec()
+        {
+            if (SMolec.Count < MAX_MOLEC_CAPACITY)
+            {
+                Random rand = new Random();
+
+                double temperature = Convert.ToDouble(numericUpDown_temparature.Value);
+
+                double vecX = rand.NextDouble() - 0.5;
+                Vector vector = new Vector(vecX * MinusOrPlus(), (1-vecX) * MinusOrPlus());
+                int borders = 30;
+                Point point = new Point(rand.Next(borders, panel1.Width- borders), rand.Next(borders, panel1.Height- borders));
+
+                Molecula m = new Molecula(point, temperature, vector);
+                SMolec.Push(m);
+
+                RedrawArea();
+            }
+        }
+
+        private void RemoveMolec()
+        {
+            if (SMolec.Count != 0)
+            {
+                SMolec.Pop();
+                RedrawArea();
+            }
+        }
+
+        private void button_clear_Click(object sender, EventArgs e)
+        {
+            SetDefaults();
+        }
+
         private void RedrawArea()
         {
-            Bitmap bm = new Bitmap(panel1.Width, panel1.Height);
+            bm = new Bitmap(panel1.Width, panel1.Height);
             Graphics gr = Graphics.FromImage(bm);
-            gr.Clear(Color.FromArgb(255, 255, 192));
+            SolidBrush solidBrush = new SolidBrush(Color.FromArgb(133, 0, 133));
+            //gr.Clear(Color.FromArgb(255, 255, 192));
 
             Rectangle rect;
-
             try
             {
                 foreach (Molecula m in SMolec)
@@ -150,10 +154,9 @@ namespace PhisicExperiments
                     }
 
                     rect = new Rectangle(m.GetX(), m.GetY(), 10, 10);
-                    SolidBrush solidBrush = new SolidBrush(Color.FromArgb(133, 0, 133));
                     gr.FillEllipse(solidBrush, rect);
-                    //gr.FillEllipse(new SolidBrush(Color.FromArgb(rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255))), rect);
                 }
+                panel1.BackgroundImage = bm;
             }
             catch (Exception exp)
             {
@@ -161,14 +164,13 @@ namespace PhisicExperiments
                 RedrawArea();
                 return;
             }
-            panel1.BackgroundImage = bm;
         }
 
         private Point NextLocation(Molecula m)
         {
             int heigh = panel1.Height;
             int width = panel1.Width;
-            int step = 20;
+            int step = 5;
 
             Vector vec = m.GetVector();
             Point loc = m.GetLocation();
@@ -195,14 +197,86 @@ namespace PhisicExperiments
                 Thread th = new Thread(RedrawArea);
                 th.IsBackground = true;
                 th.Start();
+                button_stop_resume.Text = "Зупинити";
             }
             else
             {
                 timer_main_area.Enabled = false;
+                button_stop_resume.Text = "Продовжити";
             }
         }
-        private void ChangeTextEnablesArea()
+
+        private void DisplayNewProperties()
         {
+            AverageTemperature = CalcAvaregeTemperature();
+            SetMolcTemperature();
+
+            numericUpDown_molec_count.Text = FormatDouble(SMolec.Count); // кількість молекул
+            textBox_temp.Text = FormatDouble(AverageTemperature); // температура
+            textBox_presure.Text = FormatDouble(PhisicCalc.CalcPresure(SMolec.Count, AverageTemperature, Volume));
+            textBox_mole.Text = FormatDouble(PhisicCalc.CalcMole(SMolec.Count));
+
+        }
+
+        private void SetMolcTemperature()
+        {
+            foreach(Molecula m in SMolec)
+               m.SetTemperature(AverageTemperature);
+        }
+
+        private void ChanegeTemperature()
+        {
+            if(AverageTemperature<=MAX_TEMPR && AverageTemperature >= 0)
+            {
+                AverageTemperature += delta;
+            }
+            if (AverageTemperature < 0) AverageTemperature = 0;
+            SetMolcTemperature();
+        }
+
+        
+
+        private double CalcAvaregeTemperature()
+        {
+            if (SMolec.Count != 0)
+            {
+                double calc = 0;// SMolec.Peek().GetTemperature();
+                foreach (Molecula m in SMolec)
+                {
+                    calc += m.GetTemperature();
+                }
+                calc = calc / SMolec.Count;
+                return calc;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        private void timer_ui_update_Tick(object sender, EventArgs e)
+        {
+            if (timer_main_area.Enabled)
+            {
+                ChanegeTemperature();
+                DisplayNewProperties();
+            }
+        }
+        double delta;
+        private void trackBar_temperature_Scroll(object sender, EventArgs e)
+        {
+            delta = trackBar_temperature.Value;
+        }
+
+  
+
+ 
+
+        #region exit methods
+        private void button_stop_resume_Click(object sender, EventArgs e)
+        {
+            timer_main_area.Enabled = !timer_main_area.Enabled;
+
             if (timer_main_area.Enabled)
             {
                 button_stop_resume.Text = "Зупинити";
@@ -213,50 +287,10 @@ namespace PhisicExperiments
             }
         }
 
-        private void UpdateValues()
-        {
-            numericUpDown_molec_count.Text = FormatDouble(SMolec.Count); // кількість молекул
-            //Temperature = CalcAvaregeTemperature();
-            textBox_temp.Text = FormatDouble(Temperature); // температура
-            textBox_presure.Text = FormatDouble(PhisicCalc.CalcPresure(SMolec.Count, Temperature, Volume)); 
-            textBox_mole.Text = FormatDouble(PhisicCalc.CalcMole(SMolec.Count));
-
-        }
-
-        private String FormatDouble(double value)
-        {
-            return String.Format("{0:0.00}", value);
-        }
-
-        private double CalcAvaregeTemperature()
-        {
-            if (SMolec.Count != 0)
-            {
-                double calc = SMolec.Peek().GetTemperature();
-                Console.WriteLine("**Start tempr**");
-                foreach (Molecula m in SMolec)
-                {
-                    calc = (calc + m.GetTemperature()) / 2;
-                    Console.WriteLine($"{calc}  {m.GetTemperature()}    -- {Temperature}");
-                }
-                Console.WriteLine("**END tempr**");
-                return calc;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        #region exit methods
-        private void button_stop_resume_Click(object sender, EventArgs e)
-        {
-            timer_main_area.Enabled = !timer_main_area.Enabled;
-        }
-
         private void trackBar_temperatuere_MouseUp(object sender, MouseEventArgs e)
         {
             trackBar_temperature.Value = 0;
+            delta = 0;
         }
 
         private void button_exit_Click(object sender, EventArgs e)
@@ -269,6 +303,14 @@ namespace PhisicExperiments
         private void button_stop_resume_stopwatch_Click(object sender, EventArgs e)
         {
             timer_stopwartch.Enabled = !timer_stopwartch.Enabled;
+            if (timer_stopwartch.Enabled)
+            {
+                button_stop_resume_stopwatch.Text = "Зупинити";
+            }
+            else
+            {
+                button_stop_resume_stopwatch.Text = "Відновити";
+            }
         }
 
         private void timer_stopwartch_Tick(object sender, EventArgs e)
@@ -282,31 +324,11 @@ namespace PhisicExperiments
             Stopwatch_time = 0;
             textBox_stopwatch.Text = "";
             timer_stopwartch.Enabled = false;
-        }
-        private void ChangeTextEnablesStopwatch()
-        {
-            if (timer_stopwartch.Enabled)
-            {
-                button_stop_resume_stopwatch.Text = "Зупинити";
-            }
-            else
-            {
-                button_stop_resume_stopwatch.Text = "Відновити";
-            }
+            button_stop_resume_stopwatch.Text = "Відновити";
         }
         #endregion
 
-        private void timer_ui_update_Tick(object sender, EventArgs e)
-        {
-            UpdateValues();
-            ChangeTextEnablesStopwatch();
-            ChangeTextEnablesArea();
-        }
-
-        private void trackBar_temperature_Scroll(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 
 

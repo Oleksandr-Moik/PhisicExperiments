@@ -21,7 +21,7 @@ namespace PhisicExperiments
 
         public static double CalcMole(int Count)
         {
-            return Count / N_A * 0.1e+25;
+            return Count / N_A * 0.1e+24;
         }
     }
 }

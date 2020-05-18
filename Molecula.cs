@@ -34,6 +34,11 @@ namespace PhisicExperiments
             Temperature = tempr;
         }
 
+        public void ChangeTemperature(double delta)
+        {
+            Temperature += delta;
+        }
+
         public void SetLocation(int x, int y)
         {
             X = x;
