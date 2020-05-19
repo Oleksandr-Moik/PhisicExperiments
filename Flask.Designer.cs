@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.timer_area_update = new System.Windows.Forms.Timer(this.components);
+            this.Timer_Update = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timer_area_redraw
             // 
-            this.timer_area_update.Interval = 30;
-            this.timer_area_update.Tick += new System.EventHandler(this.timer_area_update_Tick);
+            this.Timer_Update.Interval = 30;
+            this.Timer_Update.Tick += new System.EventHandler(this.Timer_Update_Tick);
             // 
             // Flask
             // 
@@ -49,6 +49,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer timer_area_update;
+        private System.Windows.Forms.Timer Timer_Update;
     }
 }

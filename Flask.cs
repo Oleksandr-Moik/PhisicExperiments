@@ -13,22 +13,23 @@ namespace PhisicExperiments
 {
     public partial class Flask : UserControl
     {
-        public static decimal MAX_MOLECULES_CAPACITY = 10000;
-        public static int MAX_TEAMPERATURE = 13000;
+     
+        public static decimal MAX_MOLECULES_CAPACITY = 20000;
+        public static int MAX_TEAMPERATURE = 6000;
         public static int DEFAULT_TEAMPERATURE = 300;
         public static int MAX_TEMPERATURE_COLOR = 3000;
         public static double Depth = 0.1e-23;
 
         private Stack<Molecule> StMolecules;
         private double AverageTemperature;
-        private decimal CountForAddRemoveMolecules;
         private double TemperatureChangeDelta;
         private double TemperatureNewMolecules;
-
+        private int CountForAddRemoveMolecules;
 
         public Flask()
         {
             InitializeComponent();
+            Clear();
         }
 
         public void Clear()
@@ -36,48 +37,33 @@ namespace PhisicExperiments
             StMolecules = new Stack<Molecule>();
 
             ChangeMoleculesCount();
-            timer_area_update.Enabled = true;
+            DisplayMolecules();
+            Timer_Update.Enabled = true;
         }
 
-        public int GetCountMolecules()
+        public int GetMoleculesCount()
         {
             return StMolecules.Count;
         }
+       
         public double GetVolume()
         {
             return Height * Width * Depth;
         }
         public double GetPressure()
         {
-            return PhisicCalculating.CalculatePressure(GetCountMolecules(), GetAverageTemperature(), GetVolume());
+            return PhisicCalculating.CalculatePressure(GetMoleculesCount(), GetAverageTemperature(), GetVolume());
         }
         public double GetMoles()
         {
-            return PhisicCalculating.CalculateMoles(GetCountMolecules());
+            return PhisicCalculating.CalculateMoles(GetMoleculesCount());
         }
         public double GetAverageTemperature()
         {
             CalculateAverageTemperature();
             return AverageTemperature;
         }
-
-        private void CalculateAverageTemperature() {
-            if (GetCountMolecules() != 0)
-            {
-                double calc = 0;
-                foreach (Molecule m in StMolecules)
-                {
-                    calc += m.GetTemperature();
-                }
-                calc /= GetCountMolecules();
-                AverageTemperature = calc;
-            }
-            else
-            {
-                AverageTemperature = 0;
-            }
-        }
-
+        
         public void SetTemperatureNewMolecules(double temperature)
         {
             TemperatureNewMolecules = temperature;
@@ -86,14 +72,84 @@ namespace PhisicExperiments
         {
             TemperatureChangeDelta = delta;
         }
+        
+        private void CalculateAverageTemperature() {
+            if (GetMoleculesCount() != 0)
+            {
+                double calc = 0;
+                foreach (Molecule m in StMolecules)
+                {
+                    calc += m.GetTemperature();
+                }
+                calc /= GetMoleculesCount();
+                AverageTemperature = calc;
+            }
+            else
+            {
+                AverageTemperature = 0;
+            }
+        }
 
         public void SetDeltaMoleculs(int delta)
         {
             CountForAddRemoveMolecules = delta;
             ChangeMoleculesCount();
         }
+        public void ChangeMoleculesCount()
+        {
+            while (CountForAddRemoveMolecules != 0)
+            {
+                if (CountForAddRemoveMolecules < 0)
+                {
+                    RemoveLastMolecule();
+                    CountForAddRemoveMolecules++;
+                }
+                else
+                {
+                    AddNewMolecule();
+                    CountForAddRemoveMolecules--;
+                }
+                DisplayMolecules();
+            }
+        }
+        private void AddNewMolecule()
+        {
+            if (StMolecules.Count < MAX_MOLECULES_CAPACITY)
+            {
+                Random rand1 = new Random(DateTime.Now.Millisecond);
 
-        private void timer_area_update_Tick(object sender, EventArgs e)
+                double vecX = rand1.NextDouble() + 1;
+                double vecY = rand1.NextDouble() + 1;
+                Vector vector = new Vector(vecX * RandomMinusOrPlus(), vecY * RandomMinusOrPlus());
+                int borders = 20;
+
+                Random rand2 = new Random((int)(DateTime.Now.Millisecond * rand1.NextDouble() * 10000));
+
+                Point point = new Point(rand1.Next(borders, Width - borders), rand2.Next(borders, Height - borders));
+
+                Molecule m = new Molecule(point, TemperatureNewMolecules, vector);
+                StMolecules.Push(m);
+            }
+        }
+        private int RandomMinusOrPlus()
+        {
+            Random rand = new Random(DateTime.Now.Millisecond);
+            if (rand.NextDouble() - 0.5 > 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        private void RemoveLastMolecule()
+        {
+            if (StMolecules.Count != 0)
+                StMolecules.Pop();
+        }
+        
+        private void Timer_Update_Tick(object sender, EventArgs e)
         {
             if (StMolecules.Count != 0)
             {
@@ -105,8 +161,17 @@ namespace PhisicExperiments
             }
             else
             {
-                timer_area_update.Enabled = false;
+                Timer_Update.Enabled = false;
             }
+        }
+        public bool GetTimerUpdateEnable()
+        {
+            return Timer_Update.Enabled;
+        }
+        public bool SwapUpdateTimer()
+        {
+            Timer_Update.Enabled = !Timer_Update.Enabled;
+            return Timer_Update.Enabled;
         }
 
         public void DisplayMolecules()
@@ -159,7 +224,7 @@ namespace PhisicExperiments
         
         public void MoveMolecules()
         {
-            if (timer_area_update.Enabled)
+            if (Timer_Update.Enabled)
             {
                 try
                 {
@@ -179,7 +244,7 @@ namespace PhisicExperiments
         private Point NextMoleculeLocation(Molecule m)
         {
             double step = 200.0 * AverageTemperature / 1000.0;
-            double current_step = step * (timer_area_update.Interval / 1000.0);
+            double current_step = step * (Timer_Update.Interval / 1000.0);
 
             Vector vec = m.GetVector();
             Point loc = m.GetLocation();
@@ -198,7 +263,7 @@ namespace PhisicExperiments
 
             return new Point(new_x, new_y);
         }
-
+        
         public void IncreaseOrDecreaseTemperature()
         {
             if (AverageTemperature <= MAX_TEAMPERATURE && AverageTemperature > 0)
@@ -213,75 +278,5 @@ namespace PhisicExperiments
             foreach (Molecule m in StMolecules)
                 m.SetTemperature(AverageTemperature);
         }
-
-        public void ChangeMoleculesCount()
-        {
-            while (CountForAddRemoveMolecules != 0)
-            {
-                if (CountForAddRemoveMolecules < 0)
-                {
-                    RemoveLastMolecule();
-                    CountForAddRemoveMolecules++;
-                }
-                else
-                {
-                    AddNewMolecule();
-                    CountForAddRemoveMolecules--;
-                }
-                DisplayMolecules();
-            }
-        }
-
-        private void RemoveLastMolecule()
-        {
-            if (StMolecules.Count != 0)
-                StMolecules.Pop();
-        }
-        private void AddNewMolecule()
-        {
-            if (StMolecules.Count < MAX_MOLECULES_CAPACITY)
-            {
-                Random rand1 = new Random(DateTime.Now.Millisecond);
-
-                double vecX = rand1.NextDouble() + 1;
-                double vecY = rand1.NextDouble() + 1;
-                Vector vector = new Vector(vecX * RandomMinusOrPlus(), vecY * RandomMinusOrPlus());
-                int borders = 20;
-
-                Random rand2 = new Random((int)(DateTime.Now.Millisecond * rand1.NextDouble() * 10000));
-
-                Point point = new Point(rand1.Next(borders, Width - borders), rand2.Next(borders, Height - borders));
-
-                Molecule m = new Molecule(point, TemperatureNewMolecules, vector);
-                StMolecules.Push(m);
-            }
-        }
-        private int RandomMinusOrPlus()
-        {
-            Random rand = new Random(DateTime.Now.Millisecond);
-            if (rand.NextDouble() - 0.5 > 0)
-            {
-                return 1;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
-        public bool SwapUpdateTimer()
-        {
-            timer_area_update.Enabled = !timer_area_update.Enabled;
-            return timer_area_update.Enabled;
-        }
-        public bool GetTimerUpdateEnable()
-        {
-            return timer_area_update.Enabled;
-        }
-       
-        
-       
-
-        
     }
 }

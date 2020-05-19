@@ -178,7 +178,7 @@
             this.button_clear.TabIndex = 7;
             this.button_clear.Text = "Очистити";
             this.button_clear.UseVisualStyleBackColor = true;
-            this.button_clear.Click += new System.EventHandler(this.Button_clear_Click);
+            this.button_clear.Click += new System.EventHandler(this.Button_Clear_Click);
             // 
             // panel1
             // 
@@ -225,7 +225,7 @@
             this.button_stop_resume_update.TabIndex = 0;
             this.button_stop_resume_update.Text = "Зупинити";
             this.button_stop_resume_update.UseVisualStyleBackColor = true;
-            this.button_stop_resume_update.Click += new System.EventHandler(this.button_stop_resume_update_Click);
+            this.button_stop_resume_update.Click += new System.EventHandler(this.Button_UpdateStopResume_Click);
             // 
             // trackBar_temperature
             // 
@@ -237,13 +237,13 @@
             this.trackBar_temperature_increment.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBar_temperature_increment.Size = new System.Drawing.Size(45, 90);
             this.trackBar_temperature_increment.TabIndex = 13;
-            this.trackBar_temperature_increment.Scroll += new System.EventHandler(this.trackBar_temperature_increment_Scroll);
-            this.trackBar_temperature_increment.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_temperatuere_MouseUp);
+            this.trackBar_temperature_increment.Scroll += new System.EventHandler(this.TrackBar_TemperatureChange_Scroll);
+            this.trackBar_temperature_increment.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBar_TemperatuereChange_MouseUp);
             // 
             // timer_stopwartch
             // 
             this.timer_stopwatch.Interval = 10;
-            this.timer_stopwatch.Tick += new System.EventHandler(this.timer_stopwartch_Tick);
+            this.timer_stopwatch.Tick += new System.EventHandler(this.Timer_Stopwatch_Tick);
             // 
             // button_stop_resume_stopwatch
             // 
@@ -253,7 +253,7 @@
             this.button_stop_resume_stopwatch.TabIndex = 14;
             this.button_stop_resume_stopwatch.Text = "Почати";
             this.button_stop_resume_stopwatch.UseVisualStyleBackColor = true;
-            this.button_stop_resume_stopwatch.Click += new System.EventHandler(this.button_stop_resume_stopwatch_Click);
+            this.button_stop_resume_stopwatch.Click += new System.EventHandler(this.Butto_StopwatchStopResume_Click);
             // 
             // button_reset_stopwatch
             // 
@@ -263,7 +263,7 @@
             this.button_reset_stopwatch.TabIndex = 15;
             this.button_reset_stopwatch.Text = "Скинути";
             this.button_reset_stopwatch.UseVisualStyleBackColor = true;
-            this.button_reset_stopwatch.Click += new System.EventHandler(this.button_reset_stopwatch_Click);
+            this.button_reset_stopwatch.Click += new System.EventHandler(this.Button_StopwatchRestart_Click);
             // 
             // groupBox1
             // 
@@ -321,7 +321,7 @@
             this.numericUpDown_molec_count.Size = new System.Drawing.Size(96, 22);
             this.numericUpDown_molec_count.TabIndex = 17;
             this.numericUpDown_molec_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numericUpDown_molec_count.ValueChanged += new System.EventHandler(this.numericUpDown_molec_count_ValueChanged);
+            this.numericUpDown_molec_count.ValueChanged += new System.EventHandler(this.NumericUpDown_MoleculesCount_ValueChanged);
             // 
             // textBox_stopwatch
             // 
@@ -383,7 +383,7 @@
             0,
             0,
             0});
-            this.numericUpDown_temparature_new_molec.ValueChanged += new System.EventHandler(this.numericUpDown_temparature_new_molec_ValueChanged);
+            this.numericUpDown_temparature_new_molec.ValueChanged += new System.EventHandler(this.NumericUpDown_TemparatureNewMolecules_ValueChanged);
             // 
             // label8
             // 
@@ -485,7 +485,7 @@
             this.button4.TabIndex = 26;
             this.button4.Text = "<";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.Buttons_add_remove_Click);
+            this.button4.Click += new System.EventHandler(this.Buttons_AddRemove_Click);
             // 
             // button3
             // 
@@ -495,7 +495,7 @@
             this.button3.TabIndex = 25;
             this.button3.Text = "<<";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.Buttons_add_remove_Click);
+            this.button3.Click += new System.EventHandler(this.Buttons_AddRemove_Click);
             // 
             // button2
             // 
@@ -505,7 +505,7 @@
             this.button2.TabIndex = 24;
             this.button2.Text = ">>";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.Buttons_add_remove_Click);
+            this.button2.Click += new System.EventHandler(this.Buttons_AddRemove_Click);
             // 
             // button1
             // 
@@ -515,13 +515,13 @@
             this.button1.TabIndex = 23;
             this.button1.Text = ">";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Buttons_add_remove_Click);
+            this.button1.Click += new System.EventHandler(this.Buttons_AddRemove_Click);
             // 
             // timer_updata_fiels
             // 
             this.timer_updata_fiels.Enabled = true;
             this.timer_updata_fiels.Interval = 30;
-            this.timer_updata_fiels.Tick += new System.EventHandler(this.timer_update_fiels_Tick);
+            this.timer_updata_fiels.Tick += new System.EventHandler(this.Timer_UpdateFiels_Tick);
             // 
             // flask1
             // 
