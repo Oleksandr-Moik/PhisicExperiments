@@ -32,9 +32,8 @@
             this.Timer_Update = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // timer_area_redraw
+            // Timer_Update
             // 
-            this.Timer_Update.Interval = 30;
             this.Timer_Update.Tick += new System.EventHandler(this.Timer_Update_Tick);
             // 
             // Flask
@@ -43,6 +42,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Name = "Flask";
             this.Size = new System.Drawing.Size(191, 157);
+            this.Load += new System.EventHandler(this.Flask_Load);
             this.ResumeLayout(false);
 
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace PhisicExperiments
 {
@@ -13,7 +12,6 @@ namespace PhisicExperiments
 
         public Molecule()
         {
-
         }
 
         public Molecule(Point p, double t, Vector v)
