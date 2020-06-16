@@ -34,6 +34,7 @@
             // 
             // Timer_Update
             // 
+            this.Timer_Update.Interval = 33;
             this.Timer_Update.Tick += new System.EventHandler(this.Timer_Update_Tick);
             // 
             // Flask
