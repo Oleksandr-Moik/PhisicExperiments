@@ -42,6 +42,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button_clear = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.flask1 = new PhisicExperiments.Flask();
             this.textBox_temp = new System.Windows.Forms.TextBox();
             this.textBox_mole = new System.Windows.Forms.TextBox();
             this.textBox_presure = new System.Windows.Forms.TextBox();
@@ -73,7 +74,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.timer_updata_fiels = new System.Windows.Forms.Timer(this.components);
-            this.flask1 = new PhisicExperiments.Flask();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_temperature_increment)).BeginInit();
@@ -190,6 +190,16 @@
             this.panel1.Size = new System.Drawing.Size(500, 314);
             this.panel1.TabIndex = 8;
             // 
+            // flask1
+            // 
+            this.flask1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("flask1.BackgroundImage")));
+            this.flask1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flask1.Location = new System.Drawing.Point(0, 0);
+            this.flask1.Margin = new System.Windows.Forms.Padding(15, 12, 15, 12);
+            this.flask1.Name = "flask1";
+            this.flask1.Size = new System.Drawing.Size(498, 312);
+            this.flask1.TabIndex = 0;
+            // 
             // textBox_temp
             // 
             this.textBox_temp.Location = new System.Drawing.Point(10, 44);
@@ -217,30 +227,30 @@
             this.textBox_presure.TabIndex = 11;
             this.textBox_presure.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // button_stop_resume_updata
+            // button_stop_resume_update
             // 
             this.button_stop_resume_update.Location = new System.Drawing.Point(10, 22);
-            this.button_stop_resume_update.Name = "button_stop_resume_updata";
+            this.button_stop_resume_update.Name = "button_stop_resume_update";
             this.button_stop_resume_update.Size = new System.Drawing.Size(110, 36);
             this.button_stop_resume_update.TabIndex = 0;
             this.button_stop_resume_update.Text = "Зупинити";
             this.button_stop_resume_update.UseVisualStyleBackColor = true;
             this.button_stop_resume_update.Click += new System.EventHandler(this.Button_UpdateStopResume_Click);
             // 
-            // trackBar_temperature
+            // trackBar_temperature_increment
             // 
             this.trackBar_temperature_increment.LargeChange = 2;
             this.trackBar_temperature_increment.Location = new System.Drawing.Point(6, 21);
             this.trackBar_temperature_increment.Maximum = 5;
             this.trackBar_temperature_increment.Minimum = -5;
-            this.trackBar_temperature_increment.Name = "trackBar_temperature";
+            this.trackBar_temperature_increment.Name = "trackBar_temperature_increment";
             this.trackBar_temperature_increment.Orientation = System.Windows.Forms.Orientation.Vertical;
             this.trackBar_temperature_increment.Size = new System.Drawing.Size(45, 90);
             this.trackBar_temperature_increment.TabIndex = 13;
             this.trackBar_temperature_increment.Scroll += new System.EventHandler(this.TrackBar_TemperatureChange_Scroll);
             this.trackBar_temperature_increment.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBar_TemperatuereChange_MouseUp);
             // 
-            // timer_stopwartch
+            // timer_stopwatch
             // 
             this.timer_stopwatch.Interval = 10;
             this.timer_stopwatch.Tick += new System.EventHandler(this.Timer_Stopwatch_Tick);
@@ -344,6 +354,7 @@
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Секундомір";
+            this.groupBox2.Visible = false;
             // 
             // label11
             // 
@@ -366,7 +377,7 @@
             this.button_exit.UseVisualStyleBackColor = true;
             this.button_exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // numericUpDown_temparature
+            // numericUpDown_temparature_new_molec
             // 
             this.numericUpDown_temparature_new_molec.Location = new System.Drawing.Point(57, 168);
             this.numericUpDown_temparature_new_molec.Minimum = new decimal(new int[] {
@@ -374,7 +385,7 @@
             0,
             0,
             0});
-            this.numericUpDown_temparature_new_molec.Name = "numericUpDown_temparature";
+            this.numericUpDown_temparature_new_molec.Name = "numericUpDown_temparature_new_molec";
             this.numericUpDown_temparature_new_molec.Size = new System.Drawing.Size(92, 22);
             this.numericUpDown_temparature_new_molec.TabIndex = 21;
             this.numericUpDown_temparature_new_molec.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -522,16 +533,6 @@
             this.timer_updata_fiels.Enabled = true;
             this.timer_updata_fiels.Interval = 30;
             this.timer_updata_fiels.Tick += new System.EventHandler(this.Timer_UpdateFiels_Tick);
-            // 
-            // flask1
-            // 
-            this.flask1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("flask1.BackgroundImage")));
-            this.flask1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flask1.Location = new System.Drawing.Point(0, 0);
-            this.flask1.Margin = new System.Windows.Forms.Padding(15, 12, 15, 12);
-            this.flask1.Name = "flask1";
-            this.flask1.Size = new System.Drawing.Size(498, 312);
-            this.flask1.TabIndex = 0;
             // 
             // Form1
             // 
